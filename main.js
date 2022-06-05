@@ -185,11 +185,6 @@ client.on("messageCreate", async msg => {
       msg.reply("No vote is currently ongoing")
     }
   }
-
-  
-
-  
-
   
 })
 
