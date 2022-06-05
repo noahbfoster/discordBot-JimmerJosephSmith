@@ -7,6 +7,7 @@ var currentVote = []
 var voteResults = []
 var voteOngoing = false
 var prefix = "."
+var admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES] })
 
@@ -19,6 +20,18 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
   client.user.setActivity("Type .jimmerhelp for a list of commands")
 })
+
+function isAdmin(user) {
+  console.log("admincheckrun")
+  console.log(user.id)
+  if (admins.includes(""+user.id)) {
+    console.log("true")
+    return true;
+  } else {
+    console.log("false")
+    return false;
+  }
+}
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -64,7 +77,7 @@ client.on("messageCreate", async msg => {
       break
     case ".mute AJ":
       //console.log(msg.author.id)
-      if (msg.author.id==832731781231804447 || msg.author.id==191086797126762496) {
+      if (msg.author.id==832731781231804447 || isAdmin(msg.author.id)) {
         let AJ = await msg.guild.members.fetch("256180684757008386")
         try { 
           if (AJ.voice.mute) {
@@ -108,7 +121,7 @@ client.on("messageCreate", async msg => {
       msg.channel.send(loadingBar(Math.random(),20))
       break;
     case ".endvote":
-      if (msg.author.id==282614964840169472&&currentVote.length>0&&voteOngoing) {
+      if (isAdmin(msg.author)&&currentVote.length>0&&voteOngoing) {
         let toSend = ""
         toSend+=("Vote has ended")
         toSend+=("\nVote results:")
@@ -156,7 +169,7 @@ client.on("messageCreate", async msg => {
     
       
   }
-  if (msg.content.startsWith(".annoy") && msg.author.id==282614964840169472) {
+  if (msg.content.startsWith(".annoy") && isAdmin(msg.author.id)) {
     msg.mentions.users.forEach(user => {
       console.log("Annoying "+user.username)
       msg.channel.send("Annoying "+user.username)
@@ -167,7 +180,7 @@ client.on("messageCreate", async msg => {
     const attachment = new Discord.MessageAttachment("./images/Yurtle.png")
     msg.channel.send({files: [attachment]})
   }
-  if (msg.content.startsWith(".setupvote")&&msg.author.id==282614964840169472) {
+  if (msg.content.startsWith(".setupvote")&&isAdmin(msg.author)) {
     if (!voteOngoing) {
       currentVote = msg.content.split("|").slice(1)
       console.log("New Vote:")
