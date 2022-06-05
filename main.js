@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 const PasswordMaker = require("./passwordMaker.js")
 var randomWords = require('random-words');
 var catFacts = require('./cat-facts.json');
+const config = require('./config.json')
 
 var currentVote = []
 var voteResults = []
@@ -229,4 +230,4 @@ client.on("messageCreate", async msg => {
 })
 
 
-client.login("OTgxNzgyMzQ2MTI4ODE4MTk3.GZEfOr.KKkvJG0wtEbsd3BlKIkN9y0_Ru2fFzQ9upNBBA")
+client.login(config.token)
