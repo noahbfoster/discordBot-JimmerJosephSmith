@@ -22,13 +22,13 @@ client.on("ready", () => {
 })
 
 function isAdmin(user) {
-  console.log("admincheckrun")
-  console.log(user.id)
+  //console.log("admincheckrun")
+  //console.log(user.id)
   if (admins.includes(""+user.id)) {
-    console.log("true")
+    //console.log("true")
     return true;
   } else {
-    console.log("false")
+    //console.log("false")
     return false;
   }
 }
@@ -114,13 +114,13 @@ client.on("messageCreate", async msg => {
         toSend+=("\n.8ball: gives you a response as from a magic 8 ball")
         msg.author.send(toSend)
         if (isAdmin(msg.author)) {
-          toSend="You are an admin! Here are the admin commands"
-          toSend+="\n.annoy @user @user2...: annoys any number of users you mention directly in the channel by sending them 10 random facts about cats in 10-40 second intervals."
+          toSend="You are an admin! Here are the admin commands:"
+          toSend+="\n.annoy @user @user2...: annoys any number of users you mention directly in the channel by sending 10 random facts about cats to their DMs in 10-40 second intervals."
           toSend+="\n.setupvote|(prompt)|(choice 1)|...|(choice n): sets up a vote including the prompt and n arbitrary number of choices, if a vote is not ongoing"
           toSend+="\n.endvote: ends the ongoing vote, and sends the results to the channel you ended the vote in."
           msg.author.send(toSend)
         }
-        msg.channel.send("Commands list was sent to your DMs.")
+        msg.reply("Commands list was sent to your DMs.")
       }
 
       break;
