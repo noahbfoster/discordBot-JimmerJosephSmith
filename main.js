@@ -112,7 +112,15 @@ client.on("messageCreate", async msg => {
         toSend+=("\n.vote #: votes for option # if there is an ongoing vote.")
         toSend+=("\n.tarkovmappicker: will return a random tarkov map")
         toSend+=("\n.8ball: gives you a response as from a magic 8 ball")
-        msg.channel.send(toSend)
+        msg.author.send(toSend)
+        if (isAdmin(msg.author)) {
+          toSend="You are an admin! Here are the admin commands"
+          toSend+="\n.annoy @user @user2...: annoys any number of users you mention directly in the channel by sending them 10 random facts about cats in 10-40 second intervals."
+          toSend+="\n.setupvote|(prompt)|(choice 1)|...|(choice n): sets up a vote including the prompt and n arbitrary number of choices, if a vote is not ongoing"
+          toSend+="\n.endvote: ends the ongoing vote, and sends the results to the channel you ended the vote in."
+          msg.author.send(toSend)
+        }
+        msg.channel.send("Commands list was sent to your DMs.")
       }
 
       break;
@@ -169,7 +177,7 @@ client.on("messageCreate", async msg => {
     
       
   }
-  if (msg.content.startsWith(".annoy") && isAdmin(msg.author.id)) {
+  if (msg.content.startsWith(".annoy") && isAdmin(msg.author)) {
     msg.mentions.users.forEach(user => {
       console.log("Annoying "+user.username)
       msg.channel.send("Annoying "+user.username)
