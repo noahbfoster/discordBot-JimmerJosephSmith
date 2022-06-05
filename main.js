@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const PasswordMaker = require("./passwordMaker.js")
 var randomWords = require('random-words');
 var catFacts = require('./cat-facts.json');
-//let catFactsArray = JSON.parse(catFacts)
+
 var currentVote = []
 var voteResults = []
 var voteOngoing = false
@@ -11,10 +11,7 @@ var admins = ["282614964840169472", "191086797126762496", "832731781231804447"] 
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES] })
 
-console.log("token now...")
-//const token = process.env['TOKEN']
-console.log("found token...")
-//const fetch = import("node-fetch")
+
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -42,7 +39,7 @@ function annoy(user, i, numMessages) {
     sleep(Math.floor(10000+Math.random()*30000)).then(()=>{
       message = catFacts[Math.floor(Math.random()*catFacts.length)]
       console.log("Sending to "+user.username+": "+message)
-      //message = randomWords()+" is to "+randomWords()+" as "+randomWords()+" is to "+randomWords();
+      //message = randomWords()+" is to "+randomWords()+" as "+randomWords()+" is to "+randomWords(); // old code to generate annoyances using random-words.js
       user.send(message)
       annoy(user, i+1, numMessages)
     })
