@@ -6,6 +6,7 @@ const config = require('./config.json')
 
 var currentVote = []
 var voteResults = []
+var alreadyVoted = {}
 var voteOngoing = false
 var prefix = "."
 var admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
@@ -163,13 +164,7 @@ client.on("messageCreate", async msg => {
         msg.reply("Map choice: "+choice)
         break;
       }
-    // case ".8ball":
-    //   {
-    //     let responses = ['It is certain.','It is decidedly so.','Without a doubt.','Yes definitely.','You may rely on it.','As I see it, yes.','Most likely.','Outlook good.', 'Yes.', 'Signs point to yes.', 'Reply hazy, try again.', 'Ask again later.', 'Better not tell you now.', 'Cannot predict now.', 'Concentrate and ask again.', "Don't count on it.", 'My reply is no.', 'My sources say no.', "Outlook not so good.", "Very doubtful."]
-    //     let choice = responses[Math.floor(Math.random()*responses.length)]
-    //     msg.reply(choice)
-    //     break;
-    //   }
+
       
 
     
@@ -193,6 +188,7 @@ client.on("messageCreate", async msg => {
       console.log(currentVote)
       let i = 0
       voteResults = []
+      alreadyVoted = {}
       while (i<(currentVote.length-1)) {
         voteResults.push(0)
         i++
@@ -215,12 +211,18 @@ client.on("messageCreate", async msg => {
     if (voteOngoing){
       let arr = msg.content.split(" ")
       let num = parseInt(arr[1])
-      if (num<voteResults.length) {
-        voteResults[num-1] = voteResults[num-1]+1
+      if (num<=voteResults.length) {
+        if (alreadyVoted[''+msg.author.id]) {
+          msg.reply("You already voted, chief.")
+        } else {
+          voteResults[num-1] = voteResults[num-1]+1
+          alreadyVoted[''+msg.author.id] = true
+          console.log("someone voted for "+num)
+        }
       } else {
         msg.reply("Bud, what happened? You done messed up. You tryna screw my code over? Input a valid number next time. You are free to go.")
       }
-      console.log("someone voted for "+num)
+      
     } else {
       msg.reply("No vote is currently ongoing")
     }
@@ -237,5 +239,7 @@ client.on("messageCreate", async msg => {
 
 })
 
+
+// Look into this https://discordjs.guide/creating-your-bot/command-handling.html#individual-command-files
 
 client.login(config.token)
