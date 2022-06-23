@@ -11,11 +11,11 @@ function isAdmin(user) {
 
 async function returnAdmins(interaction) {
     var adminNames = []
-    admins.forEach(async element => {
-        await interaction.client.users.fetch(element).then((user)=> {
+    for (const admin of admins) {
+        await interaction.client.users.fetch(admin).then((user)=> {
             adminNames.push(user.username)
         })
-    });
+    }
     return adminNames
 }
 
