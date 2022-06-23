@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { DefaultUserAgent } = require('@discordjs/rest');
 var catFacts = require('../cat-facts.json');
-const index = require('../index.js')
+const helpers = require('../helpers.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +10,7 @@ module.exports = {
         .addUserOption(option => option.setName('target').setDescription('the target user')),
     async execute(interaction) {
         const user = interaction.options.getUser('target')
-        if (index.isAdmin(interaction.member)) { 
+        if (helpers.isAdmin(interaction.member)) { 
             interaction.reply("Annoying "+user.username)
             annoy(user, 0, 10)
         } else {
