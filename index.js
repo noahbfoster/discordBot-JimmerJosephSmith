@@ -7,8 +7,6 @@ var currentVote = []
 var voteResults = []
 var alreadyVoted = {}
 var voteOngoing = false
-const admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
-
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES] })
 
 client.commands = new Discord.Collection();
@@ -43,14 +41,8 @@ client.on('interactionCreate', async interaction => {
     }
 })
 
-function isAdmin(user) {
-    if (admins.includes(""+user.id)) {
-      return true;
-    } else {
-      return false;
-    }
-}
 
-exports.isAdmin = isAdmin
+
+
 
 client.login(config.token);
