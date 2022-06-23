@@ -1,0 +1,36 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { DefaultUserAgent } = require('@discordjs/rest');
+var catFacts = require('../cat-facts.json');
+const index = require('../index.js')
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('annoy')
+        .setDescription('Annoys a target user by sending random cat facts to them over a period of time.')
+        .addUserOption(option => option.setName('target').setDescription('the target user')),
+    async execute(interaction) {
+        const user = interaction.options.getUser('target')
+        if (index.isAdmin(interaction.member)) { 
+            interaction.reply("Annoying "+user.username)
+            annoy(user, 0, 10)
+        } else {
+            interaction.reply("You Aren't an Admin, Chief")
+        }
+    }
+}
+
+async function annoy(user, i, numMessages) {
+    if (i<numMessages) {
+      sleep(Math.floor(10000+Math.random()*30000)).then(()=>{
+        message = catFacts[Math.floor(Math.random()*catFacts.length)]
+        console.log("Sending to "+user.username+": "+message)
+        //message = randomWords()+" is to "+randomWords()+" as "+randomWords()+" is to "+randomWords(); // old code to generate annoyances using random-words.js
+        user.send(message)
+        annoy(user, i+1, numMessages)
+      })
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
