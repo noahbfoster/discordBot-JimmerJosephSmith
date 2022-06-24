@@ -6,7 +6,7 @@ const fs = require('fs');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('endvote')
-        .setDescription('Ends the ongoing vote'),
+        .setDescription('(Admin only) Ends the ongoing vote'),
     async execute(interaction) {
         var vote;
         if (helpers.isAdmin(interaction.member)) {

@@ -7,7 +7,7 @@ const helpers = require('../helpers.js')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setupvote')
-        .setDescription('Command for setting up votes')
+        .setDescription('(Admin only) Command for setting up votes')
         .addStringOption(option => option.setName('prompt').setDescription('What are users voting about?'))
         .addStringOption(option => option.setName('choices').setDescription('Vote choices (separate by vertical lines)')),
     async execute(interaction) {

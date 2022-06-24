@@ -6,7 +6,7 @@ const helpers = require('../helpers.js')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('annoy')
-        .setDescription('Annoys a target user by sending random cat facts to them over a period of time.')
+        .setDescription('(Admin only) Annoys a target user by sending random cat facts to them over a period of time.')
         .addUserOption(option => option.setName('target').setDescription('the target user')),
     async execute(interaction) {
         const user = interaction.options.getUser('target')
