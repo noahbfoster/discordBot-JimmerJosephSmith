@@ -3,10 +3,7 @@ const config = require('./config.json')
 const fs = require('node:fs');
 const path = require('node:path');
 
-var currentVote = []
-var voteResults = []
-var alreadyVoted = {}
-var voteOngoing = false
+
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES] })
 
 client.commands = new Discord.Collection();
