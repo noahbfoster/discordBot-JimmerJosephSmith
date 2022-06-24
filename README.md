@@ -7,14 +7,9 @@ Features password generator code written in JavaScript, alongside other various 
 index.js is the main command-running file. to deploy this on a server, you will need to set up a discord bot account. Once you have done so and put it on a server with appropriate permissions, clone the repo. You will need to create a file called config.json in the root folder of the cloned repo, following this convention
 
 ### config.json format:
-{
-
-  "token":"yourBotTokenGoesHere",\n
-  
-  "clientId":"the id of the bot account goes here",\n
-  
-  "guildId":"the id of the server goes here",\n
-  
-  "admins":["server admin id 1", "server admin id 2"]\n
-  
+{<br>
+  "token":"your Bot Token goes here",<br>
+  "clientId":"the id of the bot account goes here",<br>
+  "guildId":"the id of the server goes here",<br>
+  "admins":["server admin id 1", "server admin id 2"]<br>
 }
