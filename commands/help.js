@@ -23,7 +23,7 @@ module.exports = {
             commands.push(command.data.toJSON());
             //console.log(commands)
         }
-        console.log(commands)
+        //console.log(commands)
         var toSend = "The list of available commands is as follows :\n```"
         commands.forEach(command => {
             toSend = toSend + "/" + command.name + ": " + command.description+"\n";
