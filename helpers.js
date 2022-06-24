@@ -19,6 +19,32 @@ async function returnAdmins(interaction) {
     return adminNames
 }
 
+function loadingBar(progress, size) {
+  let bar = "|"
+  let j = Math.ceil(progress*size)
+  let k = Math.floor(size-j)
+  let i = 0
+  while (i<j) {
+    bar+="█"
+    i++
+  }
+  i=0
+  while (i<k) {
+    bar+="░"
+    i++
+  }
+  bar=bar+"|  "+Math.round(progress*10000)/100+"%"
+  return bar
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
 
 exports.isAdmin = isAdmin
 exports.returnAdmins = returnAdmins
+exports.loadingBar = loadingBar
+exports.sleep = sleep
