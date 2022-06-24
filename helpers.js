@@ -1,16 +1,39 @@
-const config = require('./config.json')
+//const config = require('./config.json')
 //const admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
-const admins = config.admins
+//const admins = config.admins
+const fs = require('fs');
 
 function isAdmin(user) {
-    if (admins.includes(""+user.id)) {
-      return true;
-    } else {
-      return false;
-    }
+  var admins;
+  var config
+  try {
+    let rawData = fs.readFileSync('config.json')
+    config = JSON.parse(rawData)
+    admins = config.admins
+  } catch {
+    console.log("SHNIKEY, error, helpers line 13")
+
+    return
+  }
+  if (admins.includes(""+user.id)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 async function returnAdmins(interaction) {
+    var admins;
+    var config
+    try {
+      let rawData = fs.readFileSync('config.json')
+      config = JSON.parse(rawData)
+      admins = config.admins
+    } catch (error) {
+      console.log(error)
+      console.log("SHNIKEY")
+      return "uh, something has gone horribly wrong"
+    }
     var adminNames = []
     for (const admin of admins) {
         await interaction.client.users.fetch(admin).then((user)=> {
