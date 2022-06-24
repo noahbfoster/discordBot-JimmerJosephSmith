@@ -1,5 +1,6 @@
-const admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
-
+const config = require('./config.json')
+//const admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
+const admins = config.admins
 
 function isAdmin(user) {
     if (admins.includes(""+user.id)) {
