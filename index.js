@@ -41,6 +41,15 @@ client.on('interactionCreate', async interaction => {
     }
 })
 
+client.on("messageCreate", async msg => {
+    if (msg.content.includes("Yurtle")||msg.content.includes("yurtle")||msg.content.includes("turtle")||msg.content.includes("Turtle")) {
+        const attachment = new Discord.MessageAttachment("./images/Yurtle.png")
+        msg.channel.send({files: [attachment]})
+    }
+
+
+
+});
 
 
 
