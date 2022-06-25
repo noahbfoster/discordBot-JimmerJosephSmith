@@ -47,15 +47,16 @@ module.exports = {
             var voteString = JSON.stringify(voteObject)
             await fs.writeFileSync('./storage/vote.json', voteString, {flag: "w"})
             let toSend = ""
-            //toSend+="A new vote has begun! Use '/vote' to vote for your option number choice.\n"
+            toSend+="A new vote has begun! Use '/vote' to vote for your option number choice.\n"
             toSend+=("Prompt: "+currentVote[0])
             i=1
             while (i<(currentVote.length)) {
                 toSend+=("\nOption "+i+": "+currentVote[i])
                 i++
             }
-            interaction.channel.send(toSend)
-            interaction.reply("A new vote has begun! Use '/vote' to vote for your option number choice.")
+            //interaction.channel.send(toSend)
+            //interaction.reply("A new vote has begun! Use '/vote' to vote for your option number choice.")
+            interaction.reply({content: toSend})
         }
         
     }
