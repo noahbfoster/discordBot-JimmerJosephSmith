@@ -6,7 +6,6 @@ module.exports = {
         .setName('adminlist')
         .setDescription('reply with a list of admins'),
     async execute(interaction) {
-        await helpers.returnAdmins(interaction)
         const admins = await helpers.returnAdmins(interaction)
         var message = "Admins are: "
         var adminsString = ""
