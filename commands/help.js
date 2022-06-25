@@ -11,11 +11,11 @@ module.exports = {
         // const commandsPath = path.join(__dirname, 'commands');
         const commandsPath = path.join(__dirname, '');
         //const commandsPath = './commands'
-        console.log("Commands Path: "+commandsPath)
+        //console.log("Commands Path: "+commandsPath)
         const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
         for (const file of commandFiles) {
-            console.log(file)
+            //console.log(file)
             const filePath = path.join(commandsPath, file);
             //console.log(filePath)
             const command = require(filePath);
