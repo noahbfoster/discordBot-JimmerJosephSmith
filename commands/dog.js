@@ -12,10 +12,6 @@ module.exports = {
             const response = await fetch(`https://dog.ceo/api/breeds/image/random`)
             const json = await response.json()
             // //console.log(json)
-            // var toSend = ""
-            // toSend += `**The weather for ${json.name}, ${json.sys.country}:**\n`
-            // toSend += `Temperature: ${json.main.temp}F\n`
-            // toSend += `Description: ${json.weather[0].description}\n`
             const attachment = new Discord.MessageAttachment(json.message)
             //await interaction.reply({content: toSend, files: [attachment]})
             await interaction.reply({files: [attachment]})
