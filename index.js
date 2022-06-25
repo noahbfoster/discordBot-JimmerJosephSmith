@@ -17,6 +17,17 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
+client.buttons = new Discord.Collection();
+const buttonsPath = path.join(__dirname, 'buttons')
+const buttonFiles = fs.readdirSync(buttonsPath).filter(file => file.endsWith('.js'))
+console.log(buttonsPath)
+
+for (const file of buttonFiles) {
+    const filePath = path.join(buttonsPath, file);
+    const button = require(filePath);
+    client.buttons.set(button.data.name, button);
+}
+
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity("Type .jimmerhelp for a list of commands")
@@ -32,10 +43,27 @@ client.on('interactionCreate', async interaction => {
     try{
         await command.execute(interaction);
     } catch (error) {
-        console.log("error on line 32 of index.js")
+        console.log("error in interactionCreate of index.js")
         console.error(error);
-        await interaction.reply({content: 'There was an error while execturing this command!', ephemeral: true});
+        await interaction.reply({content: 'There was an error while exectuing this command!', ephemeral: true});
     }
+})
+
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isButton()) return;
+
+    const button = client.buttons.get(interaction.customId)
+
+    if (!button) return;
+
+    try{
+        await button.execute(interaction);
+    } catch (error) {
+        console.error(error)
+        await interaction.reply({content: 'There was an error while executing this button operation!', ephemeral: true});
+    }
+
+    //console.log(interaction)
 })
 
 client.on("messageCreate", async msg => {
