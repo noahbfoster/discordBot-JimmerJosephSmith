@@ -9,6 +9,7 @@ module.exports = {
     }
 }
 
+
 /* command with a target:
 module.exports = {
     data: new SlashCommandBuilder()
