@@ -30,7 +30,7 @@ for (const file of buttonFiles) {
 
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity("Type .jimmerhelp for a list of commands")
+    client.user.setActivity("Type /help for a list of commands")
 })
 
 client.on('interactionCreate', async interaction => {
