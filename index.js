@@ -45,7 +45,7 @@ client.on('interactionCreate', async interaction => {
     } catch (error) {
         console.log("error in interactionCreate of index.js")
         console.error(error);
-        await interaction.reply({content: 'There was an error while exectuing this command!', ephemeral: true});
+        await interaction.reply({content: 'There was an error while executing this command!', ephemeral: true});
     }
 })
 
