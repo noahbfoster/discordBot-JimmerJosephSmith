@@ -9,10 +9,14 @@ module.exports = {
         .setDescription('(Admin only) Ends the ongoing vote'),
     async execute(interaction) {
         var vote;
+        
+        var guild = interaction.guildId;
+        var votefile = './storage/voteguild'+guild+'.json'
+
         if (helpers.isAdmin(interaction.member)) {
             try {
                 //vote = await require('../storage/vote.json')
-                let voteData = fs.readFileSync('./storage/vote.json')
+                let voteData = fs.readFileSync(votefile)
                 vote = JSON.parse(voteData)
             } catch {
                 interaction.reply("no vote was ongoing or it was erased.")
@@ -35,7 +39,7 @@ module.exports = {
                 //console.log("Oh cmon guys, no votes?")
                 var voteObject = {"ongoing":false,"currentVote":vote.currentVote,"voteResults":vote.voteResults,"alreadyVoted":vote.alreadyVoted}
                 var voteString = JSON.stringify(voteObject)
-                await fs.writeFileSync('./storage/vote.json', voteString, {flag: "w"})
+                await fs.writeFileSync(votefile, voteString, {flag: "w"})
                 interaction.reply("No one voted!")
                 return
             }
@@ -47,7 +51,7 @@ module.exports = {
             }
             var voteObject = {"ongoing":false,"currentVote":vote.currentVote,"voteResults":vote.voteResults,"alreadyVoted":vote.alreadyVoted}
             var voteString = JSON.stringify(voteObject)
-            await fs.writeFileSync('./storage/vote.json', voteString, {flag: "w"})
+            await fs.writeFileSync(votefile, voteString, {flag: "w"})
             interaction.reply(toSend)
         } else {
             interaction.reply("Only admins can end votes! do /adminlist to see the list of admins.")

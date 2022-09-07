@@ -8,9 +8,13 @@ module.exports = {
         .addIntegerOption(option => option.setName('choice').setDescription('a number representing your vote choice')),
     async execute(interaction) {
         var vote;
+
+        var guild = interaction.guildId;
+        var votefile = './storage/voteguild'+guild+'.json'
+
         try {
             //vote = await require('../storage/vote.json')
-            let voteData = fs.readFileSync('./storage/vote.json')
+            let voteData = fs.readFileSync(votefile)
             vote = JSON.parse(voteData)
         } catch {
             interaction.reply("no vote was ongoing or it was erased.")
@@ -37,7 +41,7 @@ module.exports = {
         console.log("someone voted for "+num)
         var voteObject = {"ongoing":vote.ongoing, "currentVote":vote.currentVote, "voteResults": voteResults, "alreadyVoted": alreadyVoted}
         var voteString = JSON.stringify(voteObject)
-        await fs.writeFileSync('./storage/vote.json', voteString, {flag: "w"})
+        await fs.writeFileSync(votefile, voteString, {flag: "w"})
         // interaction.member.send(toSend)
         interaction.reply("Thanks for voting, "+interaction.member.user.username)
     }

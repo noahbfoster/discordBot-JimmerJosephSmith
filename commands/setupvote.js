@@ -13,20 +13,23 @@ module.exports = {
     async execute(interaction) {
         var vote;
 
+        var guild = interaction.guildId;
+        var votefile = './storage/voteguild'+guild+'.json'
+
         if (helpers.isAdmin(interaction.member)!=true) {
             interaction.reply("Only admins can start votes. do /adminlist to see the list of admins")
             return
         }
         try {
             //vote = require('../storage/vote.json')
-            let voteData = await fs.readFileSync('./storage/vote.json')
+            let voteData = await fs.readFileSync(votefile)
             vote = JSON.parse(voteData)
         } catch {
             var voteObject = {"ongoing":false,"currentVote":[],"voteResults":[],"alreadyVoted":{}}
             var voteString = JSON.stringify(voteObject)
-            await fs.writeFileSync('./storage/vote.json', voteString, {flag: "w"})
+            await fs.writeFileSync(votefile, voteString, {flag: "w"})
             //vote = require('../storage/vote.json')
-            let voteData = await fs.readFileSync('./storage/vote.json')
+            let voteData = await fs.readFileSync(votefile)
             vote = JSON.parse(voteData)
         }
         //await setVote()
@@ -45,7 +48,7 @@ module.exports = {
             }
             var voteObject = {"ongoing":true,"currentVote":currentVote,"voteResults":voteResults,"alreadyVoted":{}}
             var voteString = JSON.stringify(voteObject)
-            await fs.writeFileSync('./storage/vote.json', voteString, {flag: "w"})
+            await fs.writeFileSync(votefile, voteString, {flag: "w"})
             let toSend = ""
             toSend+="A **new vote** has begun! Use **'/vote'** to vote for your option number choice.\n"
             toSend+=("**Prompt:** "+currentVote[0])
