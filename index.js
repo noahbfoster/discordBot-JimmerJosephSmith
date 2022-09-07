@@ -30,6 +30,15 @@ for (const file of buttonFiles) {
 
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`)
+    var guilds = client.guilds.cache
+    for (each of guilds) {
+        console.log(each[0])
+        try { 
+            deployCommands(each[0]) // deploys commands to given guildId
+        } catch (error) {
+            console.log(error);
+        }
+    }
     client.user.setActivity("Type /help for a list of commands")
 })
 
@@ -80,3 +89,37 @@ client.on("messageCreate", async msg => {
 
 
 client.login(config.token);
+
+
+function deployCommands(guildId) {
+    // this code is from discordjs.guide and registers created commands with the discord server.
+
+    // const fs = require('node:fs');
+    // const path = require('node:path');
+    const { REST } = require('@discordjs/rest');
+    const { Routes } = require('discord-api-types/v9');
+    const { clientId, token } = require('./config.json');
+
+    const commands = [];
+    const commandsPath = path.join(__dirname, 'commands');
+    console.log("Commands Path: "+commandsPath)
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+    for (const file of commandFiles) {
+        console.log(file)
+        const filePath = path.join(commandsPath, file);
+        //console.log(filePath)
+        const command = require(filePath);
+        //console.log(command)
+        commands.push(command.data.toJSON());
+        //console.log(commands)
+    }
+
+    console.log(commands)
+
+    const rest = new REST({ version: '9' }).setToken(token);
+
+    rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+        .then(() => console.log('Successfully registered application commands.'))
+        .catch(console.error);
+}
