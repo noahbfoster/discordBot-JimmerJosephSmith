@@ -1,3 +1,5 @@
+// This file is now deprecated. just run index.js. This file remains in the repo only as an archive.
+
 // this code is from discordjs.guide and registers created commands with the discord server.
 
 const fs = require('node:fs');
