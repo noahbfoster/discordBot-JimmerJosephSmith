@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction) {
         randomIndex = Math.floor(Math.random()*wildMagicTable.length)
         d100Roll = randomIndex + 1;
-        messageText = "You rolled a "+d100Roll+". The effect of that roll is: "+wildMagicTable[randomIndex];
+        messageText = "You rolled a "+d100Roll+". The effect of that roll is: "+wildMagicTable[randomIndex] + ".";
         interaction.reply({content: messageText, ephemeral: true});
     }
 }
