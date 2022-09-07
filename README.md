@@ -11,7 +11,6 @@ index.js is the main command-running file. to deploy this on a server, you will 
 {
   "token":"your Bot Token goes here",
   "clientId":"the id of the bot account goes here",
-  "guildId":"the id of the server goes here",
   "admins":["server admin id 1", "server admin id 2"]
 }
 ```
