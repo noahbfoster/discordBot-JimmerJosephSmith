@@ -5,7 +5,7 @@ module.exports = {
         .setName('test')
         .setDescription('test button'),
     async execute(interaction) {
-        console.log(interaction)
-        interaction.reply("test button")
+        // console.log(interaction)
+        interaction.reply(interaction.member.nickname+" pressed the test button")
     }
 }
