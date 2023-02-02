@@ -6,19 +6,32 @@ module.exports = {
 		.setName('scriptrun')
 		.setDescription('Wouldn\'t you like to know, Weather boy'),
 	async execute(interaction) {
-        const bat = spawn('cmd.exe', ['/c', 'my.bat']);
-		bat.stdout.on('data', (data) => {
-            console.log(data.toString());
+        var replyText = "Performing Calculation...";
+        await interaction.reply(replyText);
+		const bat = spawn('cmd.exe', ['/c', 'my.bat']);
+        bat.stdout.on('data', (data) => {
+            var dataString = data.toString() 
+            console.log(dataString);
+            replyText += "\n";
+            replyText += dataString;
+            interaction.editReply(replyText)
         })
 
         bat.stderr.on('data', (data) => {
-            console.log(data.toString());
+            var dataString = data.toString() 
+            console.log(dataString);
+            replyText += "\n";
+            replyText += dataString;
+            interaction.editReply(replyText)
         })
 
         bat.on('exit', (code) => {
             console.log(`child exited with code ${code}`);
+            replyText += "\n";
+            replyText += `child exited with code ${code}`;
+            interaction.editReply(replyText)
         })
         
-        interaction.reply("huh.")
+        // interaction.reply(replyText)
 	},
 };
