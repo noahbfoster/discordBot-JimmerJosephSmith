@@ -1,2 +1,2 @@
-echo test
-calc.exe
+echo Running BAT file
+python test.py
