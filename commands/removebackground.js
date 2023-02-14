@@ -10,47 +10,40 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('removebackground')
         .setDescription('removes image background')
-        .addAttachmentOption(option => option.setName('image').setDescription('image to remove background from')),
+        .addAttachmentOption(option => option.setName('image').setDescription('image to remove the background from')),
     async execute(interaction) {
         
 
         try {
             let image = interaction.options.getAttachment('image')
-            let toSend = "test"
+            let toSend = "Background Removed!"
             const token = config.removeBGApiToken;
-            // console.log(image.proxyURL)
-            // interaction.reply(image.proxyURL)
 
-            const inputPath = image.proxyURL;
             const formData = new FormData();
             formData.append('size', 'auto');
-            formData.append('image_file', inputPath);//fs.createReadStream(inputPath), path.basename(inputPath));
+            formData.append('image_url', image.proxyURL);
 
             axios({
-            method: 'post',
-            url: 'https://api.remove.bg/v1.0/removebg',
-            data: formData,
-            responseType: 'arraybuffer',
-            headers: {
-                ...formData.getHeaders(),
-                'X-Api-Key': token,
-            },
-            encoding: null
-            })
-            .then((response) => {
+                method: 'post',
+                url: 'https://api.remove.bg/v1.0/removebg',
+                data: formData,
+                responseType: 'arraybuffer',
+                headers: {
+                  ...formData.getHeaders(),
+                  'X-Api-Key': token,
+                },
+                encoding: null
+              })
+              .then((response) => {
                 if(response.status != 200) return console.error('Error:', response.status, response.statusText);
                 fs.writeFileSync("no-bg.png", response.data);
                 const attachment = new Discord.MessageAttachment("no-bg.png")
                 interaction.reply({content: toSend, files: [attachment]})
-            })
-            .catch((error) => {
-                console.log(error)
+              })
+              .catch((error) => {
+                console.error('Request failed:', error);
                 interaction.reply("There was an error!")
-                //return console.error('Request failed:', error);
-            });
-
-            // const attachment = new Discord.MessageAttachment("no-bg.png")
-            // await interaction.reply({content: toSend, files: [attachment]})
+              });
         } catch (error) {
             console.log(error)
             interaction.reply("There was an error!")
