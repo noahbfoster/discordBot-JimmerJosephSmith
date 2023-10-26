@@ -34,14 +34,15 @@ module.exports = {
 
 
         try { // attempts to delete the messages.
+            interaction.deferReply({ ephemeral: true }); // defers the reply in case the command takes longer than 3 seconds.
             for (const each of messages) {
                 //console.log(each[1].id);
-                interaction.channel.messages.delete(each[1].id)
+                await interaction.channel.messages.delete(each[1].id)
             }
         } catch (error) {
             console.error
             var messageText = "Error Occurred. Remember to turn on admin permission for the bot temporarily. "+error
-            interaction.reply({content: messageText, ephemeral: true})
+            interaction.editReply({content: messageText, ephemeral: true})
             return
         }
         //console.log(messages);
@@ -49,6 +50,6 @@ module.exports = {
 
         // send ephemeral message confirming command went through. Messages are still probably being deleted since this is asynchronous.
         var messageText = "Cleared "+number+" messages."
-        interaction.reply({content: messageText, ephemeral: true})
+        interaction.editReply({content: messageText, ephemeral: true})
     }
 }
