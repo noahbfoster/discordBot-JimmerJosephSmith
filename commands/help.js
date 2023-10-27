@@ -30,6 +30,8 @@ module.exports = {
         });
         toSend = toSend + "```"
         interaction.member.user.send(toSend)
-        interaction.reply("Commands list was send to your DMs")
+        var message = "Commands list was send to your DMs";
+        interaction.reply({content: message, ephemeral: true})
+        //interaction.reply("Commands list was send to your DMs")
     }
 }
