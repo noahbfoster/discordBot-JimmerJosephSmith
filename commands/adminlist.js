@@ -13,6 +13,7 @@ module.exports = {
             adminsString = adminsString + ", " + e
         });
         adminsString = adminsString.slice(2)
-        interaction.reply(message+adminsString)
+        message = message+adminsString
+        interaction.reply({content: message, ephemeral: true})
     }
 }
