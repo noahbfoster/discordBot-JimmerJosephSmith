@@ -12,12 +12,18 @@ module.exports = {
         const user = interaction.options.getUser('target')
         const message = interaction.options.getString('message')
         interaction.reply("Sending message to "+user.username)
-        courier(user, interaction.user.username, message)
+        courier(user, interaction.user, message)
     }
 }
 
 async function courier(user, from, message) {
-    messageToSend = "I've been looking for you. Got something I'm supposed to deliver, your hands only...\n\n" + "*A letter from " + from +":*\n```" + message + "```"
-    user.send(messageToSend)
-    console.log("Sending to "+user.username+": "+messageToSend)
+    messageToSend = "I've been looking for you. Got something I'm supposed to deliver, your hands only...\n\n" + "*A letter from " + from.username +":*\n```" + message + "```" 
+    if (messageToSend.length > 2000) {
+        from.send("Your message was too long and failed to send")
+    } else {
+        user.send(messageToSend)
+    }
+    
+    //user.send(messageToSend)
+    console.log("Sending to "+user.username+"from "+ from.username + ": "+messageToSend)
 }
