@@ -15,7 +15,7 @@ module.exports = {
             const attachment = new Discord.MessageAttachment(json.message)
             //await interaction.reply({content: toSend, files: [attachment]})
             await interaction.reply({files: [attachment]})
-        } catch (error) {
+        } catch (error) { // this probably means an API error occurred.
             console.log(error)
             interaction.reply("problems occurred.")
         }

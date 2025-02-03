@@ -19,14 +19,14 @@ module.exports = {
     }
 }
 
-async function annoy(user, i, numMessages) {
+async function annoy(user, i, numMessages) { // every 10-40 seconds, send a random cat fact from the cat facts list using the helper, then send them to the targeted user, repeating numMessages times. // recursive function lol
     if (i<numMessages) {
       sleep(Math.floor(10000+Math.random()*30000)).then(()=>{
         message = catFacts[Math.floor(Math.random()*catFacts.length)]
         console.log("Sending to "+user.username+": "+message)
         //message = randomWords()+" is to "+randomWords()+" as "+randomWords()+" is to "+randomWords(); // old code to generate annoyances using random-words.js
         user.send(message)
-        annoy(user, i+1, numMessages)
+        annoy(user, i+1, numMessages) // lul recursivity is fun
       })
     }
 }

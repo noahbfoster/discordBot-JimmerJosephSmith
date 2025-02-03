@@ -1,8 +1,8 @@
 //const config = require('./config.json')
-//const admins = ["282614964840169472", "191086797126762496", "832731781231804447"] // these are strings as a workaround. includes() didn't work on the integers. weird, right?
 //const admins = config.admins
 const fs = require('fs');
 
+// this function checks if a user is an admin and returns a boolean
 function isAdmin(user) {
   var admins;
   var config
@@ -22,6 +22,7 @@ function isAdmin(user) {
   }
 }
 
+// this function returns all admins in an array.
 async function returnAdmins(interaction) {
     var admins;
     var config
@@ -43,6 +44,7 @@ async function returnAdmins(interaction) {
     return adminNames
 }
 
+// this function is for generating a loading bar of a given size and progress amount
 function loadingBar(progress, size) {
   let bar = "|"
   let j = Math.ceil(progress*size)
@@ -61,13 +63,14 @@ function loadingBar(progress, size) {
   return bar
 }
 
+// this function is for having the code wait for a given number of milliseconds
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
 
-
+// export it all!!!
 exports.isAdmin = isAdmin
 exports.returnAdmins = returnAdmins
 exports.loadingBar = loadingBar
