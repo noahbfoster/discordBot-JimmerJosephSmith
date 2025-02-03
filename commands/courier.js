@@ -13,16 +13,18 @@ module.exports = {
         const message = interaction.options.getString('message')
         var reply = ""
         try {
+            // run the courier function, setting the reply assuming success, which will be overwritten in the case of a catch.
             await courier(user, interaction.user, message)
             reply = "Sending message to "+user.username
         } catch (e) {
-            // console.log(e)
+            // handle errors, setting the proper reply if one occurs
             if (e.message == "MaxLength") {
                 reply = "Your message was too long"
             } else {
                 reply = "An error occurred"
             }
         }
+        // send the reply
         interaction.reply(reply)
     }
 }
@@ -30,11 +32,12 @@ module.exports = {
 async function courier(user, from, message) {
     messageToSend = "I've been looking for you. Got something I'm supposed to deliver, your hands only...\n\n" + "*A letter from " + from.username +":*\n```" + message + "```" 
     if (messageToSend.length > 2000) {
-        // from.send("Your message was too long and failed to send")
+        // message is too long, so throw a max length exception
         throw(
             new Error("MaxLength")
         );
     } else {
+        // send the message
         user.send(messageToSend)
         console.log("Sending to "+user.username+"from "+ from.username + ": "+messageToSend)
     }
